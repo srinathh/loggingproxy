@@ -5,12 +5,12 @@ package main
 
 import (
 	"flag"
-	"log"
+	"fmt"
+	"github.com/artyom/autoflags"
 	"net/http"
 	"net/http/httputil"
 	"net/url"
-
-	"github.com/artyom/autoflags"
+	"time"
 )
 
 type config struct {
@@ -42,7 +42,7 @@ func main() {
 
 func logServe(w http.ResponseWriter, r *http.Request) {
 	if cfg.LogReq {
-		log.Printf("%s : %s", r.RemoteAddr, r.URL.String())
+		fmt.Printf("%s %s: %s", time.Now().Format("2006-01-02T15:04:05.999"), r.RemoteAddr, r.URL.String())
 	}
 	proxy.ServeHTTP(w, r)
 }
